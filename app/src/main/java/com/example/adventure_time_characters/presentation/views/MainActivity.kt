@@ -1,4 +1,4 @@
-package com.example.adventure_time_characters
+package com.example.adventure_time_characters.presentation.views
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
