@@ -4,6 +4,6 @@ import com.example.adventure_time_characters.data.remote.dto.CharacterDto
 import retrofit2.http.GET
 
 interface ICharactersRepository {
-    @GET("/characters")
+
     suspend fun getCharacters() : List<CharacterDto>
 }

@@ -1,4 +1,4 @@
-package com.example.adventure_time_characters
+package com.example.adventure_time_characters.di
 
 import com.example.adventure_time_characters.common.Constants
 import com.example.adventure_time_characters.data.remote.ICharactersApi
@@ -23,12 +23,12 @@ object AppModule {
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create<ICharactersApi>()
+            .create(ICharactersApi::class.java)
     }
 
     @Provides
     @Singleton
-    fun getCharactersRepository(api: ICharactersApi): CharactersRepository {
+    fun getCharactersRepository(api: ICharactersApi): ICharactersRepository {
         return CharactersRepository(api)
     }
 }
