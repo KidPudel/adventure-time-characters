@@ -9,7 +9,15 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavArgument
+import androidx.navigation.NavArgumentBuilder
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.adventure_time_characters.common.MyColors
+import com.example.adventure_time_characters.presentation.views.character_detail.CharacterDetails
 import com.example.adventure_time_characters.ui.theme.AdventuretimecharactersTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,7 +31,12 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MyColors.BakerMilkerPink
                 ) {
-                    CharacterList()
+                    val navController = rememberNavController()
+                    NavHost(navController = navController, startDestination = Screen.CharacterListScreen.route) {
+                        composable(route = Screen.CharacterListScreen.route) {
+                            CharacterList()
+                        }
+                    }
                 }
             }
         }
