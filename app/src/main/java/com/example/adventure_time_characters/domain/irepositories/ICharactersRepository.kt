@@ -6,4 +6,6 @@ import retrofit2.http.GET
 interface ICharactersRepository {
 
     suspend fun getCharacters() : List<CharacterDto>
+
+    suspend fun getCharacter(name: String) : CharacterDto
 }

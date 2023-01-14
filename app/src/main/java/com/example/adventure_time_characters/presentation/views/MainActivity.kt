@@ -20,6 +20,7 @@ import com.example.adventure_time_characters.common.MyColors
 import com.example.adventure_time_characters.presentation.views.character_detail.CharacterDetails
 import com.example.adventure_time_characters.ui.theme.AdventuretimecharactersTheme
 import dagger.hilt.android.AndroidEntryPoint
+import com.example.adventure_time_characters.domain.models.Character
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -34,7 +35,15 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     NavHost(navController = navController, startDestination = Screen.CharacterListScreen.route) {
                         composable(route = Screen.CharacterListScreen.route) {
-                            CharacterList()
+                            CharacterList(navController = navController)
+                        }
+                        composable(route = Screen.CharacterDetailScreen.route + "/{name}", arguments = listOf(
+                            navArgument(name = "name") {
+                                type = NavType.StringType
+                                nullable = true
+                            }
+                        )) {
+                            CharacterDetails(name = it.arguments?.getString("name") ?: "")
                         }
                     }
                 }

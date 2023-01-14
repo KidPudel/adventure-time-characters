@@ -16,9 +16,3 @@ data class Character(
     val quotes: List<String>,
     val image: String
 )
-
-/*fun Character.decodeImage(): ImageBitmap {
-    val url = URL(image)
-    val bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream())
-    return bitmap.asImageBitmap()
-}*/
