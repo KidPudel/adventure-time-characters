@@ -1,2 +1,2 @@
 # adventure-time-characters
-Call adventure time characters from internet 😮😮
+Android app to get adventure time characters from local API 😮😮
