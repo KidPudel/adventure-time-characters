@@ -1,7 +1,7 @@
 # adventure-time-characters
 Android app to get adventure time characters from local API 😮😮
 
-For the application was build a local api for fetching Adventure Time characters
+For the application was build a local api for fetching [Adventure Time characters](https://github.com/KidPudel/ktor-adventure-time-api)
 
 # App show case
 
