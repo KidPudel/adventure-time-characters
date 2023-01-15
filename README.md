@@ -19,4 +19,5 @@ Android app to get adventure time characters from local API 😮😮
 - Dagger-Hilt
 - Jetpack Compose
   - Navigation
+- Coroutines
 - Flow
