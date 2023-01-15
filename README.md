@@ -1,6 +1,8 @@
 # adventure-time-characters
 Android app to get adventure time characters from local API 😮😮
 
+For the application was build a local api for fetching Adventure Time characters
+
 # App show case
 
 ## 1. Start the app  
