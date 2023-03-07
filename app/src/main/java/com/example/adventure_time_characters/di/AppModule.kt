@@ -16,9 +16,11 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+    private val charactersApi: ICharactersApi? = null
     @Provides
     @Singleton
     fun getCharactersApi(): ICharactersApi {
+        charactersApi?.let { return it }
         return Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
