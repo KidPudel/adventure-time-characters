@@ -1,11 +1,10 @@
 package com.example.adventure_time_characters.presentation.views
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -15,26 +14,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.PaintingStyle.Companion.Stroke
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.example.adventure_time_characters.R
 import com.example.adventure_time_characters.common.MyColors
-import com.example.adventure_time_characters.presentation.view_models.CharacterViewModel
+import com.example.adventure_time_characters.presentation.view_models.CharactersViewModel
 
 @Composable
-fun CharacterList() {
-    val characterViewModel: CharacterViewModel = hiltViewModel()
-    val boldText = FontWeight.Bold
-    val textSize = 16.sp
-    if (characterViewModel.state.value.characters.isNotEmpty()) {
+fun CharacterList(navController: NavController) {
+    val charactersViewModel: CharactersViewModel = hiltViewModel()
+    if (charactersViewModel.state.value.characters.isNotEmpty()) {
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
@@ -42,14 +35,16 @@ fun CharacterList() {
             state = rememberLazyListState(),
             userScrollEnabled = true
         ) {
-            items(characterViewModel.state.value.characters) { character ->
+            items(charactersViewModel.state.value.characters) { character ->
                 Card(
                     shape = RoundedCornerShape(1.dp),
                     backgroundColor = MyColors.SpanishLavender,
                     modifier = Modifier.border(
                         width = 5.dp,
                         color = Color.Black
-                    )
+                    ).clickable {
+                        navController.navigate(Screen.CharacterDetailScreen.route + "/${character.name}")
+                    }
                 ) {
                     Row(
                         modifier = Modifier
@@ -73,27 +68,12 @@ fun CharacterList() {
                                 .border(width = 5.dp, color = MyColors.SelectiveYellow)
                         )
                         Spacer(modifier = Modifier.width(16.dp))
-                        Column {
-                            Text(
-                                text = character.fullName,
-                                fontWeight = boldText,
-                                fontSize = textSize,
-                                color = MyColors.LightCyan
-                            )
-                            Text(
-                                text = character.age.toString(),
-                                fontWeight = boldText,
-                                fontSize = textSize,
-                                color = MyColors.LightCyan
-                            )
-                            Text(
-                                text = character.sex,
-                                fontWeight = boldText,
-                                fontSize = textSize,
-                                color = MyColors.LightCyan
-                            )
-
-                        }
+                        Text(
+                            text = character.fullName,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 20.sp,
+                            color = MyColors.LightCyan
+                        )
                     }
 
 

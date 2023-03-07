@@ -9,15 +9,18 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavArgument
+import androidx.navigation.NavArgumentBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.adventure_time_characters.common.MyColors
-import com.example.adventure_time_characters.presentation.views.character_detail.CharacterDetail
+import com.example.adventure_time_characters.presentation.views.character_detail.CharacterDetails
 import com.example.adventure_time_characters.ui.theme.AdventuretimecharactersTheme
 import dagger.hilt.android.AndroidEntryPoint
+import com.example.adventure_time_characters.domain.models.Character
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -32,16 +35,15 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     NavHost(navController = navController, startDestination = Screen.CharacterListScreen.route) {
                         composable(route = Screen.CharacterListScreen.route) {
-                            CharacterList()
+                            CharacterList(navController = navController)
                         }
-                        composable(route = Screen.CharacterDetailScreen.route, arguments = listOf(
-                            navArgument("name") {
+                        composable(route = Screen.CharacterDetailScreen.route + "/{name}", arguments = listOf(
+                            navArgument(name = "name") {
                                 type = NavType.StringType
-                                defaultValue = "Iggy :3"
                                 nullable = true
                             }
                         )) {
-                            CharacterDetail(name = it.arguments?.getString("name") ?: "")
+                            CharacterDetails(name = it.arguments?.getString("name") ?: "")
                         }
                     }
                 }
