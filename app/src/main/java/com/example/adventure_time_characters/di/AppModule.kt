@@ -4,6 +4,7 @@ import com.example.adventure_time_characters.common.Constants
 import com.example.adventure_time_characters.data.remote.ICharactersApi
 import com.example.adventure_time_characters.data.repositories.CharactersRepository
 import com.example.adventure_time_characters.domain.irepositories.ICharactersRepository
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,22 +16,22 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AppModule {
-    private val charactersApi: ICharactersApi? = null
-    @Provides
+interface AppModule {
+    @Binds
     @Singleton
-    fun getCharactersApi(): ICharactersApi {
-        charactersApi?.let { return it }
-        return Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(ICharactersApi::class.java)
-    }
+    fun getCharactersRepository(charactersRepository: CharactersRepository) : ICharactersRepository
 
-    @Provides
-    @Singleton
-    fun getCharactersRepository(api: ICharactersApi): ICharactersRepository {
-        return CharactersRepository(api)
+    companion object {
+        private val charactersApi: ICharactersApi? = null
+        @Provides
+        @Singleton
+        fun getCharactersApi(): ICharactersApi {
+            charactersApi?.let { return it }
+            return Retrofit.Builder()
+                .baseUrl(Constants.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(ICharactersApi::class.java)
+        }
     }
 }
